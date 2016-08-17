@@ -1,4 +1,13 @@
 <?php
 
 return [
+    'db' => [
+        'driver' => '',
+        'dsn' => '',
+        'username' => '',
+        'password' => '',
+        'driver_options' => [
+            1002 => 'SET NAMES \'UTF8\'',
+        ],
+    ],
 ];

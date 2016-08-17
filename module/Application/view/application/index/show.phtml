@@ -1,0 +1,21 @@
+<?php $this->headTitle()->append($this->post->name); ?>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?= $this->post->name; ?></h3>
+            </div>
+            <div class="panel-body">
+                <?= $this->post->content; ?>
+            </div>
+            <?php if ($post->hasTags()) : ?>
+                <div class="panel-footer">
+                    Tags : <?= $post->tagsList()?>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+
+</div>
