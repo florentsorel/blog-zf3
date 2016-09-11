@@ -2,15 +2,26 @@
 
 namespace Application\Infrastructure\Finder\Factory;
 
-use Application\Infrastructure\Finder\TagFinder;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Zend\ServiceManager\Factory\AbstractFactoryInterface;
 
-class TagFinderFactory implements FactoryInterface
+class FinderAbstractFactory implements AbstractFactoryInterface
 {
+
+    /**
+     * Can the factory create an instance for the service?
+     *
+     * @param  ContainerInterface $container
+     * @param  string $requestedName
+     * @return bool
+     */
+    public function canCreate(ContainerInterface $container, $requestedName)
+    {
+        return (fnmatch('*Finder', $requestedName)) ? true : false;
+    }
 
     /**
      * Create an object
@@ -26,8 +37,10 @@ class TagFinderFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new TagFinder(
-            $container->get('db')
-        );
+        if (class_exists($requestedName)) {
+            return new $requestedName(
+                $container->get('db')
+            );
+        }
     }
 }

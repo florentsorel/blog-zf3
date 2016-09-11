@@ -4,6 +4,7 @@ namespace Application;
 
 use Application\Controller\Factory\IndexControllerFactory;
 use Application\Controller\IndexController;
+use Application\Infrastructure\Finder\Factory\FinderAbstractFactory;
 use Application\Infrastructure\Finder\Factory\PostFinderFactory;
 use Application\Infrastructure\Finder\Factory\TagFinderFactory;
 use Application\Infrastructure\Finder\PostFinder;
@@ -45,13 +46,13 @@ return [
         'aliases' => [
             'db' => 'Zend\Db\Adapter\Adapter',
         ],
+        'abstract_factories' => array(
+            FinderAbstractFactory::class,
+        ),
         'factories' => [
             'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
             /// Service
             PostService::class => PostServiceFactory::class,
-            // Finder
-            PostFinder::class => PostFinderFactory::class,
-            TagFinder::class => TagFinderFactory::class,
         ],
     ],
     'controllers' => [
