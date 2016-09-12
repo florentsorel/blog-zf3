@@ -5,10 +5,6 @@ namespace Application;
 use Application\Controller\Factory\IndexControllerFactory;
 use Application\Controller\IndexController;
 use Application\Infrastructure\Finder\Factory\FinderAbstractFactory;
-use Application\Infrastructure\Finder\Factory\PostFinderFactory;
-use Application\Infrastructure\Finder\Factory\TagFinderFactory;
-use Application\Infrastructure\Finder\PostFinder;
-use Application\Infrastructure\Finder\TagFinder;
 use Application\Service\Factory\PostServiceFactory;
 use Application\Service\PostService;
 use Zend\Router\Http\Literal;
@@ -38,6 +34,16 @@ return [
                     'constraints' => [
                         'slug' => '[0-9a-z-]+'
                     ]
+                ],
+            ],
+            'admin-root' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/admin',
+                    'defaults' => [
+                        'controller' => IndexController::class,
+                        'action'     => 'admin',
+                    ],
                 ],
             ],
         ],

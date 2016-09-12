@@ -49,4 +49,9 @@ class IndexController extends AbstractActionController
             $this->notFoundAction();
         }
     }
+
+    public function adminAction()
+    {
+        return new ViewModel();
+    }
 }
