@@ -23,10 +23,8 @@ class PostController extends AbstractActionController
 
     public function indexAction()
     {
-        die();
-        $viewModel = new ViewModel();
-
-        $viewModel->setVariable('posts', $this->postService->findAll());
-        return $viewModel;
+        return new ViewModel([
+            'posts' => $this->postService->findAll()
+        ]);
     }
 }
