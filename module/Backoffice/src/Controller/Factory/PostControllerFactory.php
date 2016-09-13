@@ -2,7 +2,7 @@
 
 namespace Backoffice\Controller\Factory;
 
-use Backoffice\Controller\IndexController;
+use Backoffice\Controller\PostController;
 use Application\Service\PostService;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
@@ -27,7 +27,7 @@ class PostControllerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new IndexController(
+        return new PostController(
             $container->get(PostService::class)
         );
     }
