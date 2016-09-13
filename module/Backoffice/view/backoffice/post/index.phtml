@@ -3,3 +3,21 @@
 <div class="jumbotron">
     <h1>Listes des articles</h1>
 </div>
+
+
+<?php if ($this->posts->count() > 0) : ?>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Titre</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->posts as $post): ?>
+                <tr>
+                    <td><?= $post->name; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php endif; ?>
