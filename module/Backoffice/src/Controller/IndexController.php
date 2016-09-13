@@ -7,6 +7,7 @@ use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
+
     /**
      * @return ViewModel
      */

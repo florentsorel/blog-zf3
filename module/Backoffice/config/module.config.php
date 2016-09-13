@@ -2,8 +2,11 @@
 
 namespace Backoffice;
 
+use Backoffice\Controller\Factory\PostControllerFactory;
 use Backoffice\Controller\IndexController;
+use Backoffice\Controller\PostController;
 use Zend\Router\Http\Literal;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'router' => [
@@ -17,6 +20,19 @@ return [
                         'action'     => 'index',
                     ],
                 ],
+                'may_terminate' => true,
+                'child_routes' => [
+                    'posts' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route'    => '/posts',
+                            'defaults' => [
+                                'controller' => PostController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                    ],
+                ]
             ],
         ],
     ],
@@ -28,12 +44,12 @@ return [
         ),
         'factories' => [
             'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
-            // Service
         ],
     ],
     'controllers' => [
-        'invokables' => [
-            IndexController::class => IndexController::class,
+        'factories' => [
+            IndexController::class => InvokableFactory::class,
+            PostController::class => PostControllerFactory::class,
         ],
     ],
     'view_manager' => [

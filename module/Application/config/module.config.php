@@ -22,30 +22,24 @@ return [
                         'action'     => 'index',
                     ],
                 ],
-            ],
-            'post' => [
-                'type' => Segment::class,
-                'options' => [
-                    'route'    => '/:slug',
-                    'defaults' => [
-                        'controller' => IndexController::class,
-                        'action'     => 'show',
+                'may_terminate' => true,
+                'child_routes' => [
+                    'post' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route'    => ':slug',
+                            'defaults' => [
+                                'controller' => IndexController::class,
+                                'action'     => 'show',
+                            ],
+                            'constraints' => [
+                                'slug' => '[0-9a-z-]+'
+                            ]
+                        ],
                     ],
-                    'constraints' => [
-                        'slug' => '[0-9a-z-]+'
-                    ]
-                ],
+                ]
             ],
-            'admin-root' => [
-                'type' => Literal::class,
-                'options' => [
-                    'route'    => '/admin',
-                    'defaults' => [
-                        'controller' => IndexController::class,
-                        'action'     => 'admin',
-                    ],
-                ],
-            ],
+
         ],
     ],
     'service_manager' => [
@@ -57,7 +51,7 @@ return [
         ),
         'factories' => [
             'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
-            /// Service
+            // Service
             PostService::class => PostServiceFactory::class,
         ],
     ],

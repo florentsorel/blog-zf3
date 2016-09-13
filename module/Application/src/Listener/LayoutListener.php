@@ -73,7 +73,7 @@ class LayoutListener extends AbstractListenerAggregate
 
         $viewHelperManager->get('headTitle')
             ->setSeparator(' - ')
-            ->append('Blog - Administration')
+            ->append('Administration')
             ->setAutoEscape(false)
         ;
     }
