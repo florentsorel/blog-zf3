@@ -66,7 +66,7 @@ class LayoutListener extends AbstractListenerAggregate
     private function initializeBackofficeLayout(MvcEvent $event)
     {
         $layout = $event->getViewModel();
-        $layout->setTemplate('layout/admin');
+        $layout->setTemplate('layout/backoffice');
 
         $serviceManager = $event->getApplication()->getServiceManager();
         $viewHelperManager = $serviceManager->get('ViewHelperManager');
