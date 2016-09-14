@@ -31,6 +31,19 @@ return [
                                 'action' => 'index'
                             ]
                         ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'create' => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route'    => '/create',
+                                    'defaults' => [
+                                        'controller' => PostController::class,
+                                        'action' => 'create'
+                                    ]
+                                ],
+                            ],
+                        ]
                     ],
                 ]
             ],

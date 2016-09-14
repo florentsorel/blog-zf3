@@ -1,0 +1,33 @@
+<?php $this->headTitle("Add new post"); ?>
+
+<?= $this->form()->openTag($this->form); ?>
+
+<?php
+$titleElement = $this->form->get('title');
+$titleElement->setAttribute('id', 'title')
+    ->setAttribute('class', 'form-control');
+?>
+
+<div class="form-group<?= ($titleElement->getMessages()) ? ' has-error' : ''; ?>">
+    <label for="<?= $titleElement->getAttribute('id'); ?>" class="control-label">Title</label>
+    <?= $this->formText($titleElement); ?>
+    <?php //$this->formError()->render($titleElement); ?>
+</div>
+
+<?php
+$contentElement = $this->form->get('content');
+$contentElement->setAttribute('id', 'content')
+    ->setAttribute('class', 'form-control');
+?>
+
+    <div class="form-group<?= ($contentElement->getMessages()) ? ' has-error' : ''; ?>">
+        <label for="<?= $contentElement->getAttribute('id'); ?>" class="control-label">Content</label>
+        <?= $this->formTextarea($contentElement); ?>
+        <?php //$this->formError()->render($titleElement); ?>
+    </div>
+
+<div class="form-group clearfix">
+    <button class="btn btn-success mod-large pull-right" type="submit">Ajouter</button>
+</div>
+
+<?= $this->form()->closeTag($this->form); ?>
