@@ -1,17 +1,15 @@
 <?php
 
-namespace Backoffice\Controller\Factory;
+namespace Application\Infrastructure\Service\Factory;
 
-use Backoffice\Command\Handler\CreatePostHandler;
-use Backoffice\Controller\PostController;
-use Application\Service\PostService;
+use Application\Infrastructure\Service\TransactionManager;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class PostControllerFactory implements FactoryInterface
+class TransactionManagerFactory implements FactoryInterface
 {
 
     /**
@@ -28,9 +26,8 @@ class PostControllerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new PostController(
-            $container->get(PostService::class),
-            $container->get(CreatePostHandler::class)
+        return new TransactionManager(
+            $container->get('db')
         );
     }
 }

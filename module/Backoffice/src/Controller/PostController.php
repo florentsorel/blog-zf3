@@ -3,6 +3,7 @@
 namespace Backoffice\Controller;
 
 use Application\Service\PostService;
+use Backoffice\Command\Handler\CreatePostHandler;
 use Backoffice\Form\CreatePostForm;
 use Backoffice\Service\Command\CreatePostCommand;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -16,11 +17,20 @@ class PostController extends AbstractActionController
     private $postService;
 
     /**
-     * @param PostService $postService
+     * @var CreatePostHandler
      */
-    public function __construct(PostService $postService)
-    {
+    private $createPostHandler;
+
+    /**
+     * @param PostService $postService
+     * @param CreatePostHandler $createPostHandler
+     */
+    public function __construct(
+        PostService $postService,
+        CreatePostHandler $createPostHandler
+    ) {
         $this->postService = $postService;
+        $this->createPostHandler = $createPostHandler;
     }
 
     public function indexAction()
@@ -49,8 +59,8 @@ class PostController extends AbstractActionController
         $formData = $postCreateForm->getData();
 
         $createCommand = CreatePostCommand::createFromFormData($formData);
+        $this->createPostHandler->handle($createCommand);
 
-        // Lancer le handler sur la command
 
         return $this->redirect()->toRoute('admin-root/posts');
     }

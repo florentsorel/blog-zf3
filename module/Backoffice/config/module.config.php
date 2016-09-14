@@ -2,6 +2,8 @@
 
 namespace Backoffice;
 
+use Backoffice\Command\Handler\CreatePostHandler;
+use Backoffice\Command\Handler\Factory\CreatePostHandlerFactory;
 use Backoffice\Controller\Factory\PostControllerFactory;
 use Backoffice\Controller\IndexController;
 use Backoffice\Controller\PostController;
@@ -50,14 +52,7 @@ return [
         ],
     ],
     'service_manager' => [
-        'aliases' => [
-            'db' => 'Zend\Db\Adapter\Adapter',
-        ],
-        'abstract_factories' => array(
-        ),
-        'factories' => [
-            'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
-        ],
+
     ],
     'controllers' => [
         'factories' => [

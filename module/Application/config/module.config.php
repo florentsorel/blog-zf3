@@ -5,10 +5,16 @@ namespace Application;
 use Application\Controller\Factory\IndexControllerFactory;
 use Application\Controller\IndexController;
 use Application\Infrastructure\Finder\Factory\FinderAbstractFactory;
+use Application\Infrastructure\Repository\PostRepository;
+use Application\Infrastructure\Service\Factory\TransactionManagerFactory;
+use Application\Infrastructure\Service\TransactionManager;
 use Application\Service\Factory\PostServiceFactory;
 use Application\Service\PostService;
+use Backoffice\Command\Handler\CreatePostHandler;
+use Backoffice\Command\Handler\Factory\CreatePostHandlerFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'router' => [
@@ -51,8 +57,15 @@ return [
         ),
         'factories' => [
             'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
+
+            TransactionManager::class => TransactionManagerFactory::class,
+
             // Service
             PostService::class => PostServiceFactory::class,
+
+            CreatePostHandler::class => CreatePostHandlerFactory::class,
+            PostRepository::class => InvokableFactory::class,
+
         ],
     ],
     'controllers' => [
