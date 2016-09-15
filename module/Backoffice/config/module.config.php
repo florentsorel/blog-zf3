@@ -2,13 +2,12 @@
 
 namespace Backoffice;
 
-use Backoffice\Command\Handler\CreatePostHandler;
-use Backoffice\Command\Handler\Factory\CreatePostHandlerFactory;
 use Backoffice\Controller\Factory\PostControllerFactory;
 use Backoffice\Controller\IndexController;
 use Backoffice\Controller\PostController;
+use Backoffice\Service\Command\Handler\CreatePostHandler;
+use Backoffice\Service\Command\Handler\Factory\CreatePostHandlerFactory;
 use Zend\Router\Http\Literal;
-use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'router' => [
@@ -52,11 +51,15 @@ return [
         ],
     ],
     'service_manager' => [
-
+        'factories' => [
+            CreatePostHandler::class => CreatePostHandlerFactory::class,
+        ]
     ],
     'controllers' => [
+        'invokables' => [
+            IndexController::class => IndexController::class,
+        ],
         'factories' => [
-            IndexController::class => InvokableFactory::class,
             PostController::class => PostControllerFactory::class,
         ],
     ],

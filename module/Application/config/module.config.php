@@ -10,8 +10,6 @@ use Application\Infrastructure\Service\Factory\TransactionManagerFactory;
 use Application\Infrastructure\Service\TransactionManager;
 use Application\Service\Factory\PostServiceFactory;
 use Application\Service\PostService;
-use Backoffice\Command\Handler\CreatePostHandler;
-use Backoffice\Command\Handler\Factory\CreatePostHandlerFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -63,7 +61,7 @@ return [
             // Service
             PostService::class => PostServiceFactory::class,
 
-            CreatePostHandler::class => CreatePostHandlerFactory::class,
+            // Repository
             PostRepository::class => InvokableFactory::class,
 
         ],

@@ -1,6 +1,6 @@
 <?php
 
-namespace Backoffice\Command\Handler;
+namespace Backoffice\Service\Command\Handler;
 
 use Application\Domain\Entity\Post;
 use Application\Infrastructure\Repository\PostRepository;
@@ -20,8 +20,8 @@ class CreatePostHandler
     public $postRepository;
 
     public function __construct(
-        TransactionManager $transactionManager,
-        PostRepository $postRepository
+        PostRepository $postRepository,
+        TransactionManager $transactionManager
     ) {
         $this->transactionManager = $transactionManager;
         $this->postRepository = $postRepository;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Backoffice\Command\Handler\Factory;
+namespace Backoffice\Service\Command\Handler\Factory;
 
 use Application\Infrastructure\Repository\PostRepository;
 use Application\Infrastructure\Service\TransactionManager;
-use Backoffice\Command\Handler\CreatePostHandler;
+use Backoffice\Service\Command\Handler\CreatePostHandler;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;

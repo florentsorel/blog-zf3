@@ -2,7 +2,7 @@
 
 namespace Backoffice\Controller\Factory;
 
-use Backoffice\Command\Handler\CreatePostHandler;
+use Backoffice\Service\Command\Handler\CreatePostHandler;
 use Backoffice\Controller\PostController;
 use Application\Service\PostService;
 use Interop\Container\ContainerInterface;
