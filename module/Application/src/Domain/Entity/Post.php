@@ -2,7 +2,7 @@
 
 namespace Application\Domain\Entity;
 
-class Post
+class Post extends AbstractEntity
 {
     /** @var string */
     private $title;

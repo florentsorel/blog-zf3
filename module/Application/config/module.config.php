@@ -5,6 +5,7 @@ namespace Application;
 use Application\Controller\Factory\IndexControllerFactory;
 use Application\Controller\IndexController;
 use Application\Infrastructure\Finder\Factory\FinderAbstractFactory;
+use Application\Infrastructure\Repository\Factory\RepositoryAbstractFactory;
 use Application\Infrastructure\Repository\PostRepository;
 use Application\Infrastructure\Service\Factory\TransactionManagerFactory;
 use Application\Infrastructure\Service\TransactionManager;
@@ -52,6 +53,7 @@ return [
         ],
         'abstract_factories' => array(
             FinderAbstractFactory::class,
+            RepositoryAbstractFactory::class,
         ),
         'factories' => [
             'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
@@ -62,7 +64,7 @@ return [
             PostService::class => PostServiceFactory::class,
 
             // Repository
-            PostRepository::class => InvokableFactory::class,
+            //PostRepository::class => InvokableFactory::class,
 
         ],
     ],
