@@ -3,9 +3,13 @@
 namespace Application\Infrastructure\Repository;
 
 use Application\Domain\Entity\Post;
+use Application\Infrastructure\Mapper\PostMapper;
 
 class PostRepository extends AbstractRepository
 {
+    /** @var PostMapper */
+    protected $mapper;
+
     public function save(Post $post)
     {
         if ($post->getId() !== null) {
@@ -22,7 +26,32 @@ class PostRepository extends AbstractRepository
      */
     private function create(Post $post)
     {
+        $data = $this->mapper->extract($post);
 
+        // Persiste les données
+        $insert = "
+            INSERT INTO Post (
+                idPost,
+                name,
+                content,
+                idUser
+            )
+            VALUES (
+                :idPost,
+                :name,
+                :content,
+                :idUser
+            )
+        ";
+
+        $bindParams = $data;
+        /**
+         * @todo récupérer l'id de l'utilisateur lorsque l'implémentation de l'authentification sera en place
+         */
+        $bindParams['idUser'] = 1;
+
+        $statement = $this->db->createStatement($insert);
+        $statement->execute($bindParams);
     }
 
     /**
