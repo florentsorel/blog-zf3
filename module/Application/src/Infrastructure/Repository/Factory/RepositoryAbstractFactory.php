@@ -2,6 +2,8 @@
 
 namespace Application\Infrastructure\Repository\Factory;
 
+use Application\Infrastructure\Mapper\AbstractMapper;
+use Application\Infrastructure\Mapper\MapperInterface;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
@@ -39,7 +41,8 @@ class RepositoryAbstractFactory implements AbstractFactoryInterface
     {
         if (class_exists($requestedName)) {
             return new $requestedName(
-                $container->get('db')
+                $container->get('db'),
+                $container->get(MapperInterface::class)
             );
         }
     }

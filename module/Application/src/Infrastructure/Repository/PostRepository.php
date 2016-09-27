@@ -3,13 +3,9 @@
 namespace Application\Infrastructure\Repository;
 
 use Application\Domain\Entity\Post;
-use Application\Infrastructure\Mapper\PostMapper;
 
 class PostRepository extends AbstractRepository
 {
-    /** @var PostMapper */
-    protected $mapper;
-
     public function save(Post $post)
     {
         if ($post->getId() !== null) {

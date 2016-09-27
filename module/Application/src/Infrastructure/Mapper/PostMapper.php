@@ -6,7 +6,7 @@ use Application\Domain\Entity\Post;
 use InvalidArgumentException;
 use Zend\Hydrator\HydratorInterface;
 
-class PostMapper implements HydratorInterface
+class PostMapper implements HydratorInterface, MapperInterface
 {
 
     /**
