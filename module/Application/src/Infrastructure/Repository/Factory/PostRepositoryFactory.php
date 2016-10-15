@@ -2,29 +2,16 @@
 
 namespace Application\Infrastructure\Repository\Factory;
 
-use Application\Infrastructure\Mapper\AbstractMapper;
-use Application\Infrastructure\Mapper\MapperInterface;
+use Application\Infrastructure\Mapper\PostMapper;
+use Application\Infrastructure\Repository\PostRepository;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
-use Zend\ServiceManager\Factory\AbstractFactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
-class RepositoryAbstractFactory implements AbstractFactoryInterface
+class PostRepositoryFactory implements FactoryInterface
 {
-
-    /**
-     * Can the factory create an instance for the service?
-     *
-     * @param  ContainerInterface $container
-     * @param  string $requestedName
-     * @return bool
-     */
-    public function canCreate(ContainerInterface $container, $requestedName)
-    {
-        return (fnmatch('*Repository', $requestedName)) ? true : false;
-    }
-
     /**
      * Create an object
      *
@@ -39,11 +26,9 @@ class RepositoryAbstractFactory implements AbstractFactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        if (class_exists($requestedName)) {
-            return new $requestedName(
-                $container->get('db'),
-                $container->get(MapperInterface::class)
-            );
-        }
+        return new PostRepository(
+            $container->get('db'),
+            $container->get(PostMapper::class)
+        );
     }
 }

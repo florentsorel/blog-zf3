@@ -34,7 +34,8 @@ class CreatePostHandler
         try {
             $post = new Post();
             $post->setTitle($command->getTitle())
-                ->setContent($command->getContent());
+                 ->setSlug($command->getTitle())
+                 ->setContent($command->getContent());
 
             $this->postRepository->save($post);
         }

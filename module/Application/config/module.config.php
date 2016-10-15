@@ -5,15 +5,16 @@ namespace Application;
 use Application\Controller\Factory\IndexControllerFactory;
 use Application\Controller\IndexController;
 use Application\Infrastructure\Finder\Factory\FinderAbstractFactory;
-use Application\Infrastructure\Mapper\MapperInterface;
 use Application\Infrastructure\Mapper\PostMapper;
-use Application\Infrastructure\Repository\Factory\RepositoryAbstractFactory;
+use Application\Infrastructure\Repository\Factory\PostRepositoryFactory;
+use Application\Infrastructure\Repository\PostRepository;
 use Application\Infrastructure\Service\Factory\TransactionManagerFactory;
 use Application\Infrastructure\Service\TransactionManager;
 use Application\Service\Factory\PostServiceFactory;
 use Application\Service\PostService;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'router' => [
@@ -53,18 +54,19 @@ return [
         ],
         'abstract_factories' => array(
             FinderAbstractFactory::class,
-            RepositoryAbstractFactory::class,
         ),
-        'invokables' => [
-            MapperInterface::class => PostMapper::class
-        ],
         'factories' => [
             'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
-
             TransactionManager::class => TransactionManagerFactory::class,
 
             // Service
             PostService::class => PostServiceFactory::class,
+
+            // Repository
+            PostRepository::class => PostRepositoryFactory::class,
+
+            // Mapper
+            PostMapper::class => InvokableFactory::class
 
         ],
     ],

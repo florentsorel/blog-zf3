@@ -8,6 +8,9 @@ class Post extends AbstractEntity
     private $title;
 
     /** @var string */
+    private $slug;
+
+    /** @var string */
     private $content;
 
     /**
@@ -19,12 +22,30 @@ class Post extends AbstractEntity
     }
 
     /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
      * @param string $title
      * @return $this
      */
     public function setTitle($title)
     {
         $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * @param string $slug
+     * @return $this
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
         return $this;
     }
 

@@ -6,7 +6,7 @@ use Application\Domain\Entity\Post;
 use InvalidArgumentException;
 use Zend\Hydrator\HydratorInterface;
 
-class PostMapper implements HydratorInterface, MapperInterface
+class PostMapper implements HydratorInterface
 {
 
     /**
@@ -31,6 +31,7 @@ class PostMapper implements HydratorInterface, MapperInterface
         return [
             'idPost' => $object->getId(),
             'name' => $object->getTitle(),
+            'slug' => $object->getSlug(),
             'content' => $object->getContent()
         ];
     }
@@ -59,6 +60,9 @@ class PostMapper implements HydratorInterface, MapperInterface
 
         if (isset($data['name']) && !empty($data['name'])) {
             $object->setTitle($data['name']);
+        }
+        if (isset($data['slug']) && !empty($data['slug'])) {
+            $object->setSlug($data['slug']);
         }
         if (isset($data['content']) && !empty($data['content'])) {
             $object->setContent($data['content']);

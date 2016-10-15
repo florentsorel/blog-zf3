@@ -3,9 +3,23 @@
 namespace Application\Infrastructure\Repository;
 
 use Application\Domain\Entity\Post;
+use Application\Infrastructure\Mapper\PostMapper;
+use Zend\Db\Adapter\Adapter as DbAdapter;
 
-class PostRepository extends AbstractRepository
+class PostRepository
 {
+    /** @var DbAdapter */
+    protected $db;
+
+    /** @var PostMapper */
+    protected $mapper;
+
+    public function __construct(DbAdapter $dbAdapter, PostMapper $mapper)
+    {
+        $this->db = $dbAdapter;
+        $this->mapper = $mapper;
+    }
+
     public function save(Post $post)
     {
         if ($post->getId() !== null) {
@@ -29,12 +43,14 @@ class PostRepository extends AbstractRepository
             INSERT INTO Post (
                 idPost,
                 name,
+                slug,
                 content,
                 idUser
             )
             VALUES (
                 :idPost,
                 :name,
+                :slug,
                 :content,
                 :idUser
             )
