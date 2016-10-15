@@ -22,10 +22,11 @@ class PostMapper implements HydratorInterface
                 ? get_class($object)
                 : gettype($object);
 
-            $class = Post::class;
-            throw new InvalidArgumentException(
-                "Excepting $class for parameter [object]; $type given"
-            );
+            throw new InvalidArgumentException(sprintf(
+                'Given value must be an instance of %s; "%s" given',
+                Post::class,
+                $type
+            ));
         }
 
         return [
@@ -50,10 +51,11 @@ class PostMapper implements HydratorInterface
                 ? get_class($object)
                 : gettype($object);
 
-            $class = Post::class;
-            throw new InvalidArgumentException(
-                "Excepting $class for parameter [object]; $type given"
-            );
+            throw new InvalidArgumentException(sprintf(
+                'Given value must be an instance of %s; "%s" given',
+                Post::class,
+                $type
+            ));
         }
 
         $object->setId((int) $data['idPost']);
