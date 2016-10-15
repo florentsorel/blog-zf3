@@ -8,7 +8,7 @@ abstract class AbstractEntity
     protected $id;
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getId()
     {

@@ -2,6 +2,7 @@
 
 namespace Backoffice\Service\Command\Handler;
 
+use Application\Domain\Common\ValueObject\Slug;
 use Application\Domain\Entity\Post;
 use Application\Infrastructure\Repository\PostRepository;
 use Application\Infrastructure\Service\TransactionManager;
@@ -34,7 +35,7 @@ class CreatePostHandler
         try {
             $post = new Post();
             $post->setTitle($command->getTitle())
-                 ->setSlug($command->getTitle())
+                 ->setSlug(Slug::createFromString($command->getTitle())->toString())
                  ->setContent($command->getContent());
 
             $this->postRepository->save($post);
