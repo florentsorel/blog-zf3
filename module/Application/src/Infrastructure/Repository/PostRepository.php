@@ -2,6 +2,7 @@
 
 namespace Application\Infrastructure\Repository;
 
+use Application\Domain\Common\ValueObject\Slug;
 use Application\Domain\Post\Post;
 use Application\Infrastructure\Mapper\PostMapper;
 use Zend\Db\Adapter\Adapter as DbAdapter;
@@ -18,6 +19,74 @@ class PostRepository
     {
         $this->db = $dbAdapter;
         $this->mapper = $mapper;
+    }
+
+    /**
+     * @param int $idPost
+     * @return Post|null
+     */
+    public function findById($idPost)
+    {
+        $select = "
+            SELECT
+                Post.idPost,
+                Post.name,
+                Post.slug,
+                Post.content
+            FROM Post
+            WHERE Post.idPost = :idPost
+            LIMIT 1
+        ";
+
+        $statement = $this->db->createStatement($select);
+        $result = $statement->execute([
+            ':idPost' => $idPost
+        ]);
+
+        if ($result->isQueryResult() === false
+            || $result->count() < 1
+        ) {
+            return null;
+        }
+
+        $post = new Post();
+        $this->mapper->hydrate($result->current(), $post);
+
+        return $post;
+    }
+
+    /**
+     * @param Slug $slug
+     * @return Post|null
+     */
+    public function findBySlug(Slug $slug)
+    {
+        $select = "
+            SELECT
+                Post.idPost,
+                Post.name,
+                Post.slug,
+                Post.content
+            FROM Post
+            WHERE Post.slug = :slug
+            LIMIT 1
+        ";
+
+        $statement = $this->db->createStatement($select);
+        $result = $statement->execute([
+            ':slug' => $slug->toString()
+        ]);
+
+        if ($result->isQueryResult() === false
+            || $result->count() < 1
+        ) {
+            return null;
+        }
+
+        $post = new Post();
+        $this->mapper->hydrate($result->current(), $post);
+
+        return $post;
     }
 
     public function save(Post $post)

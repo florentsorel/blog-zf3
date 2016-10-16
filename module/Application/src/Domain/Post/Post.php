@@ -3,8 +3,9 @@
 namespace Application\Domain\Post;
 
 use Application\Domain\Common\Entity\AbstractEntity;
+use Application\Domain\Common\Entity\EntityInterface;
 
-class Post extends AbstractEntity
+class Post extends AbstractEntity implements EntityInterface
 {
     /** @var string */
     private $title;
@@ -67,5 +68,20 @@ class Post extends AbstractEntity
     {
         $this->content = $content;
         return $this;
+    }
+
+    /**
+     * Permet de vérifier si deux entités ont la même identité
+     *
+     * @param EntityInterface $candidate
+     * @return boolean
+     */
+    public function sameIdentityAs(EntityInterface $candidate)
+    {
+        if ( ! $candidate instanceof self) {
+            return false;
+        }
+
+        return $this->id == $candidate->getId();
     }
 }

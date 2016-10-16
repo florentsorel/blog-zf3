@@ -4,6 +4,7 @@ namespace Backoffice\Service\Command\Handler;
 
 use Application\Domain\Common\ValueObject\Slug;
 use Application\Domain\Post\Post;
+use Application\Domain\Post\PostSlugUniquenessEnforcer;
 use Application\Infrastructure\Repository\PostRepository;
 use Application\Infrastructure\Service\TransactionManager;
 use Backoffice\Service\Command\CreatePostCommand;
@@ -33,10 +34,15 @@ class CreatePostHandler
         $this->transactionManager->beginTransaction();
 
         try {
+
+            $slugSpecification = new PostSlugUniquenessEnforcer($this->postRepository);
+
             $post = new Post();
             $post->setTitle($command->getTitle())
                  ->setSlug(Slug::createFromString($command->getSlug())->toString())
                  ->setContent($command->getContent());
+
+            $slugSpecification->enforcePostSlugUniqueness($post);
 
             $this->postRepository->save($post);
         }
