@@ -2,7 +2,7 @@
 
 namespace Application\Infrastructure\Mapper;
 
-use Application\Domain\Entity\Post;
+use Application\Domain\Post\Post;
 use InvalidArgumentException;
 use Zend\Hydrator\HydratorInterface;
 

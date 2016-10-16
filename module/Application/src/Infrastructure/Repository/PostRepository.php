@@ -2,7 +2,7 @@
 
 namespace Application\Infrastructure\Repository;
 
-use Application\Domain\Entity\Post;
+use Application\Domain\Post\Post;
 use Application\Infrastructure\Mapper\PostMapper;
 use Zend\Db\Adapter\Adapter as DbAdapter;
 

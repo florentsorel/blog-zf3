@@ -8,6 +8,9 @@ class CreatePostCommand
     private $title;
 
     /** @var string */
+    private $slug;
+
+    /** @var string */
     private $content;
 
     /**
@@ -24,6 +27,22 @@ class CreatePostCommand
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
     }
 
     /**
@@ -46,6 +65,7 @@ class CreatePostCommand
     {
         $command = new self();
         $command->setTitle($formData['title']);
+        $command->setSlug($formData['title']);
         $command->setContent($formData['content']);
 
         return $command;

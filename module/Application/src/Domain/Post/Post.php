@@ -1,6 +1,8 @@
 <?php
 
-namespace Application\Domain\Entity;
+namespace Application\Domain\Post;
+
+use Application\Domain\Common\Entity\AbstractEntity;
 
 class Post extends AbstractEntity
 {
