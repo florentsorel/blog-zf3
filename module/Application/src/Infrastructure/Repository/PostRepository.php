@@ -141,6 +141,24 @@ class PostRepository
      */
     private function update(Post $post)
     {
+        $data = $this->mapper->extract($post);
 
+        // Met à jour les données
+        $update = "
+            UPDATE Post
+            SET
+                Post.name = :name,
+                Post.slug = :slug,
+                Post.content = :content
+            WHERE Post.idPost = :idPost
+        ";
+
+        $statement = $this->db->createStatement($update);
+        $statement->execute([
+            ':idPost' => $data['idPost'],
+            ':name' => $data['name'],
+            ':slug' => $data['slug'],
+            ':content' => $data['content']
+        ]);
     }
 }

@@ -23,7 +23,7 @@ $contentElement->setAttribute('id', 'content')
     <div class="form-group<?= ($contentElement->getMessages()) ? ' has-error' : ''; ?>">
         <label for="<?= $contentElement->getAttribute('id'); ?>" class="control-label">Content</label>
         <?= $this->formTextarea($contentElement); ?>
-        <?php //$this->formError()->render($titleElement); ?>
+        <?php //$this->formError()->render($contentElement); ?>
     </div>
 
 <div class="form-group clearfix">

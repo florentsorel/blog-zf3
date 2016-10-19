@@ -1,0 +1,51 @@
+<?php $this->headTitle("Add new post"); ?>
+
+<?php if($this->success === true): ?>
+<div class="alert alert-success">
+    Article modifié avec succès.
+</div>
+<?php endif; ?>
+
+<?= $this->form()->openTag($this->form); ?>
+
+<?php
+$titleElement = $this->form->get('title');
+$titleElement->setAttribute('id', 'title')
+    ->setAttribute('class', 'form-control');
+?>
+
+    <div class="form-group<?= ($titleElement->getMessages()) ? ' has-error' : ''; ?>">
+        <label for="<?= $titleElement->getAttribute('id'); ?>" class="control-label">Title</label>
+        <?= $this->formText($titleElement); ?>
+        <?php //$this->formError()->render($titleElement); ?>
+    </div>
+
+<?php
+$slugElement = $this->form->get('slug');
+$slugElement->setAttribute('id', 'slug')
+    ->setAttribute('class', 'form-control');
+?>
+
+    <div class="form-group<?= ($slugElement->getMessages()) ? ' has-error' : ''; ?>">
+        <label for="<?= $slugElement->getAttribute('id'); ?>" class="control-label">Slug</label>
+        <?= $this->formText($slugElement); ?>
+        <?php //$this->formError()->render($slugElement); ?>
+    </div>
+
+<?php
+$contentElement = $this->form->get('content');
+$contentElement->setAttribute('id', 'content')
+    ->setAttribute('class', 'form-control');
+?>
+
+    <div class="form-group<?= ($contentElement->getMessages()) ? ' has-error' : ''; ?>">
+        <label for="<?= $contentElement->getAttribute('id'); ?>" class="control-label">Content</label>
+        <?= $this->formTextarea($contentElement); ?>
+        <?php //$this->formError()->render($contentElement); ?>
+    </div>
+
+    <div class="form-group clearfix">
+        <button class="btn btn-success mod-large pull-right" type="submit">Modifier</button>
+    </div>
+
+<?= $this->form()->closeTag($this->form); ?>

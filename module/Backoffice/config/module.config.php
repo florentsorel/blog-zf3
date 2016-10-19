@@ -7,7 +7,10 @@ use Backoffice\Controller\IndexController;
 use Backoffice\Controller\PostController;
 use Backoffice\Service\Command\Handler\CreatePostHandler;
 use Backoffice\Service\Command\Handler\Factory\CreatePostHandlerFactory;
+use Backoffice\Service\Command\Handler\Factory\UpdatePostHandlerFactory;
+use Backoffice\Service\Command\Handler\UpdatePostHandler;
 use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
 
 return [
     'router' => [
@@ -44,6 +47,19 @@ return [
                                     ]
                                 ],
                             ],
+                            'edit' => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route'    => '/edit/:id',
+                                    'defaults' => [
+                                        'controller' => PostController::class,
+                                        'action' => 'edit'
+                                    ],
+                                    'constraints' => [
+                                        'id' => '[0-9]+'
+                                    ]
+                                ],
+                            ],
                         ]
                     ],
                 ]
@@ -53,6 +69,7 @@ return [
     'service_manager' => [
         'factories' => [
             CreatePostHandler::class => CreatePostHandlerFactory::class,
+            UpdatePostHandler::class => UpdatePostHandlerFactory::class,
         ]
     ],
     'controllers' => [
