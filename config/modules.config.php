@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'Zend\ServiceManager\Di',
     'Zend\Session',
     'Zend\Mvc\Plugin\Prg',
     'Zend\Mvc\Plugin\Identity',
