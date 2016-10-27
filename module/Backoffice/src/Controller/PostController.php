@@ -98,8 +98,7 @@ class PostController extends AbstractActionController
 
         $formData = $postUpdateForm->getData();
 
-        $updateCommand = UpdatePostCommand::createFromFormData($formData);
-        $updateCommand->idPost = $idPost;
+        $updateCommand = UpdatePostCommand::createFromFormData($idPost, $formData);
         $this->updatePostHandler->handle($updateCommand);
 
         $view->setVariable('success', true);

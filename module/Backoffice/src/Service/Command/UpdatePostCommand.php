@@ -80,9 +80,15 @@ class UpdatePostCommand
         $this->content = $content;
     }
 
-    public static function createFromFormData(array $formData)
+    /**
+     * @param int $idPost
+     * @param array $formData
+     * @return UpdatePostCommand
+     */
+    public static function createFromFormData($idPost, array $formData)
     {
         $command = new self();
+        $command->setId($idPost);
         $command->setTitle($formData['title']);
         $command->setSlug($formData['slug']);
         $command->setContent($formData['content']);

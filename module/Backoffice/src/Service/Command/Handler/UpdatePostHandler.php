@@ -38,7 +38,7 @@ class UpdatePostHandler
 
         try {
 
-            $post = $this->postRepository->findById($command->idPost);
+            $post = $this->postRepository->findById($command->getId());
 
             $post->setTitle($command->getTitle())
                 ->setSlug(Slug::createFromString($command->getSlug())->toString())
