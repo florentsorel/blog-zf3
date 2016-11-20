@@ -24,7 +24,7 @@ class PostSlugUniquenessEnforcer
     public function enforcePostSlugUniqueness(Post $post)
     {
         $uniqueSuffix = 1;
-        $baseSlugString = $post->getSlug();
+        $baseSlugString = $post->getSlug()->toString();
         while ( ! $this->postSlugIsUnique->isSatisfiedBy($post)) {
             // Ajoute un suffixe automatiquement à l'outil
             $uniqueSuffix++;
