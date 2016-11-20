@@ -2,6 +2,8 @@
 
 namespace Backoffice\Service\Command;
 
+use Application\Domain\Common\ValueObject\Slug;
+
 class UpdatePostCommand
 {
     /** @var int */
@@ -10,7 +12,7 @@ class UpdatePostCommand
     /** @var string */
     private $title;
 
-    /** @var string */
+    /** @var Slug */
     private $slug;
 
     /** @var string */
@@ -49,7 +51,7 @@ class UpdatePostCommand
     }
 
     /**
-     * @return string
+     * @return Slug
      */
     public function getSlug()
     {
@@ -57,7 +59,7 @@ class UpdatePostCommand
     }
 
     /**
-     * @param string $slug
+     * @param Slug $slug
      */
     public function setSlug($slug)
     {
@@ -90,7 +92,7 @@ class UpdatePostCommand
         $command = new self();
         $command->setId($idPost);
         $command->setTitle($formData['title']);
-        $command->setSlug($formData['slug']);
+        $command->setSlug(Slug::createFromString($formData['slug']));
         $command->setContent($formData['content']);
 
         return $command;

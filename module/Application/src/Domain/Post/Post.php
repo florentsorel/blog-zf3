@@ -4,13 +4,14 @@ namespace Application\Domain\Post;
 
 use Application\Domain\Common\Entity\AbstractEntity;
 use Application\Domain\Common\Entity\EntityInterface;
+use Application\Domain\Common\ValueObject\Slug;
 
 class Post extends AbstractEntity implements EntityInterface
 {
     /** @var string */
     private $title;
 
-    /** @var string */
+    /** @var Slug */
     private $slug;
 
     /** @var string */
@@ -25,7 +26,7 @@ class Post extends AbstractEntity implements EntityInterface
     }
 
     /**
-     * @return string
+     * @return Slug
      */
     public function getSlug()
     {
@@ -43,7 +44,7 @@ class Post extends AbstractEntity implements EntityInterface
     }
 
     /**
-     * @param string $slug
+     * @param Slug $slug
      * @return $this
      */
     public function setSlug($slug)

@@ -2,6 +2,7 @@
 
 namespace Application\Domain\Post;
 
+use Application\Domain\Common\ValueObject\Slug;
 use Application\Infrastructure\Repository\PostRepository;
 
 class PostSlugUniquenessEnforcer
@@ -27,7 +28,7 @@ class PostSlugUniquenessEnforcer
         while ( ! $this->postSlugIsUnique->isSatisfiedBy($post)) {
             // Ajoute un suffixe automatiquement à l'outil
             $uniqueSuffix++;
-            $post->setSlug("{$baseSlugString}-{$uniqueSuffix}");
+            $post->setSlug(Slug::createFromString("{$baseSlugString}-{$uniqueSuffix}"));
         }
     }
 }

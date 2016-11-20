@@ -2,12 +2,14 @@
 
 namespace Backoffice\Service\Command;
 
+use Application\Domain\Common\ValueObject\Slug;
+
 class CreatePostCommand
 {
     /** @var string */
     private $title;
 
-    /** @var string */
+    /** @var Slug */
     private $slug;
 
     /** @var string */
@@ -30,7 +32,7 @@ class CreatePostCommand
     }
 
     /**
-     * @return string
+     * @return Slug
      */
     public function getSlug()
     {
@@ -38,7 +40,7 @@ class CreatePostCommand
     }
 
     /**
-     * @param string $slug
+     * @param Slug $slug
      */
     public function setSlug($slug)
     {
@@ -65,7 +67,7 @@ class CreatePostCommand
     {
         $command = new self();
         $command->setTitle($formData['title']);
-        $command->setSlug($formData['title']);
+        $command->setSlug(Slug::createFromString($formData['title']));
         $command->setContent($formData['content']);
 
         return $command;

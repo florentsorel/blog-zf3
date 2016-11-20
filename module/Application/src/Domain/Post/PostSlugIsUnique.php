@@ -33,7 +33,7 @@ class PostSlugIsUnique implements SpecificationInterface
 
         /** @var $existingPost Post */
         $existingPost = $this->postRepository
-            ->findBySlug(new Slug($candidate->getSlug()));
+            ->findBySlug($candidate->getSlug());
 
         if ($existingPost === null) {
             return true;

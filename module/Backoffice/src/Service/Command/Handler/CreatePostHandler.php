@@ -39,7 +39,7 @@ class CreatePostHandler
 
             $post = new Post();
             $post->setTitle($command->getTitle())
-                 ->setSlug(Slug::createFromString($command->getSlug())->toString())
+                 ->setSlug($command->getSlug())
                  ->setContent($command->getContent());
 
             $slugSpecification->enforcePostSlugUniqueness($post);
