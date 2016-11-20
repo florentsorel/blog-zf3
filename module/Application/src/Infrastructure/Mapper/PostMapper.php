@@ -2,6 +2,7 @@
 
 namespace Application\Infrastructure\Mapper;
 
+use Application\Domain\Common\ValueObject\Slug;
 use Application\Domain\Post\Post;
 use InvalidArgumentException;
 use Zend\Hydrator\HydratorInterface;
@@ -64,7 +65,7 @@ class PostMapper implements HydratorInterface
             $object->setTitle($data['name']);
         }
         if (isset($data['slug']) && !empty($data['slug'])) {
-            $object->setSlug($data['slug']);
+            $object->setSlug(Slug::createFromString($data['slug']));
         }
         if (isset($data['content']) && !empty($data['content'])) {
             $object->setContent($data['content']);
