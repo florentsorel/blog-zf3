@@ -40,7 +40,7 @@ return [
                     'post' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route'    => 'test/:slug',
+                            'route'    => 'article/:slug',
                             'defaults' => [
                                 'controller' => IndexController::class,
                                 'action'     => 'show',
