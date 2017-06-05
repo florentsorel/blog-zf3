@@ -89,6 +89,10 @@ class PostRepository
         return $post;
     }
 
+    /**
+     * Persiste les données
+     * @param Post $post
+     */
     public function save(Post $post)
     {
         if ($post->getId() !== null) {

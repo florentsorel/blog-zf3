@@ -3,13 +3,20 @@
 namespace Application;
 
 use Application\Controller\Factory\IndexControllerFactory;
+use Application\Controller\Factory\UserControllerFactory;
 use Application\Controller\IndexController;
+use Application\Controller\UserController;
 use Application\Infrastructure\Finder\Factory\FinderAbstractFactory;
 use Application\Infrastructure\Mapper\PostMapper;
+use Application\Infrastructure\Mapper\UserMapper;
 use Application\Infrastructure\Repository\Factory\PostRepositoryFactory;
+use Application\Infrastructure\Repository\Factory\UserRepositoryFactory;
 use Application\Infrastructure\Repository\PostRepository;
+use Application\Infrastructure\Repository\UserRepository;
 use Application\Infrastructure\Service\Factory\TransactionManagerFactory;
 use Application\Infrastructure\Service\TransactionManager;
+use Application\Service\Command\Handler\CreateUserHandler;
+use Application\Service\Command\Handler\Factory\CreateUserHandlerFactory;
 use Application\Service\Factory\PostServiceFactory;
 use Application\Service\PostService;
 use Zend\Router\Http\Literal;
@@ -33,7 +40,7 @@ return [
                     'post' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route'    => ':slug',
+                            'route'    => 'test/:slug',
                             'defaults' => [
                                 'controller' => IndexController::class,
                                 'action'     => 'show',
@@ -45,6 +52,27 @@ return [
                     ],
                 ]
             ],
+            'login' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/login',
+                    'defaults' => [
+                        'controller' => UserController::class,
+                        'action' => 'login',
+                    ],
+                ],
+            ],
+            'register' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/register',
+                    'defaults' => [
+                        'controller' => UserController::class,
+                        'action' => 'register',
+                    ],
+                ],
+            ],
+
 
         ],
     ],
@@ -64,15 +92,21 @@ return [
 
             // Repository
             PostRepository::class => PostRepositoryFactory::class,
+            UserRepository::class => UserRepositoryFactory::class,
 
             // Mapper
-            PostMapper::class => InvokableFactory::class
+            PostMapper::class => InvokableFactory::class,
+            UserMapper::class => InvokableFactory::class,
+
+            // Handler
+            CreateUserHandler::class => CreateUserHandlerFactory::class,
 
         ],
     ],
     'controllers' => [
         'factories' => [
             IndexController::class => IndexControllerFactory::class,
+            UserController::class => UserControllerFactory::class,
         ],
     ],
     'view_manager' => [

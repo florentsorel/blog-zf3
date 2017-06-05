@@ -2,7 +2,6 @@
 
 namespace Backoffice\Service\Command\Handler;
 
-use Application\Domain\Common\ValueObject\Slug;
 use Application\Domain\Post\Post;
 use Application\Domain\Post\PostSlugUniquenessEnforcer;
 use Application\Infrastructure\Repository\PostRepository;

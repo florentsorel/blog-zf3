@@ -30,6 +30,7 @@ class IndexController extends AbstractActionController
             'posts' => $this->postService->findAll()
         ]);
     }
+
     /**
      * Affiche le détail d'un article
      *

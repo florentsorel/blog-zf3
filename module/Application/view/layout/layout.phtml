@@ -33,11 +33,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo $this->url('root') ?>">Blog</a>
+            <a class="navbar-brand" href="<?php //echo $this->url('root') ?>">Blog</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="<?php echo $this->url('root') ?>">Accueil</a></li>
+                <li class="active"><a href="<?php //echo $this->url('root') ?>">Accueil</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="<?= $this->url('login'); ?>">Connexion</a></li>
+                <li><a href="<?= $this->url('register'); ?>">Inscription</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

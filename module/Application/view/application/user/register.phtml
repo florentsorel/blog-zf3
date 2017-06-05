@@ -1,0 +1,45 @@
+<?php $this->headTitle("Create an account"); ?>
+
+<?= $this->form()->openTag($this->form); ?>
+
+<?php
+$emailElement = $this->form->get('email');
+$emailElement->setAttribute('id', 'email')
+    ->setAttribute('class', 'form-control');
+?>
+
+    <div class="form-group<?= ($emailElement->getMessages()) ? ' has-error' : ''; ?>">
+        <label for="<?= $emailElement->getAttribute('id'); ?>" class="control-label">Email</label>
+        <?= $this->formText($emailElement); ?>
+        <?= $emailElement->getMessages() ? '<div class="help-block">' . array_values($emailElement->getMessages())[0] . '</div>' : ''; ?>
+    </div>
+
+<?php
+$passwordElement = $this->form->get('password');
+$passwordElement->setAttribute('id', 'password')
+    ->setAttribute('class', 'form-control');
+?>
+
+    <div class="form-group<?= ($passwordElement->getMessages()) ? ' has-error' : ''; ?>">
+        <label for="<?= $passwordElement->getAttribute('id'); ?>" class="control-label">Password</label>
+        <?= $this->formPassword($passwordElement); ?>
+        <?= $passwordElement->getMessages() ? '<div class="help-block">' . array_values($passwordElement->getMessages())[0] . '</div>' : ''; ?>
+    </div>
+
+<?php
+$passwordConfirmationElement = $this->form->get('password_confirmation');
+$passwordConfirmationElement->setAttribute('id', 'password_confirmation')
+    ->setAttribute('class', 'form-control');
+?>
+
+    <div class="form-group<?= ($passwordConfirmationElement->getMessages()) ? ' has-error' : ''; ?>">
+        <label for="<?= $passwordConfirmationElement->getAttribute('id'); ?>" class="control-label">Password confirmation</label>
+        <?= $this->formPassword($passwordConfirmationElement); ?>
+        <?= $passwordConfirmationElement->getMessages() ? '<div class="help-block">' . array_values($passwordConfirmationElement->getMessages())[0] . '</div>' : ''; ?>
+    </div>
+
+    <div class="form-group clearfix">
+        <button class="btn btn-success mod-large pull-right" type="submit">Register</button>
+    </div>
+
+<?= $this->form()->closeTag($this->form); ?>
