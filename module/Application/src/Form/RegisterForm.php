@@ -2,9 +2,10 @@
 
 namespace Application\Form;
 
+use Application\Domain\Common\ValueObject\Password;
 use Zend\Filter\StringTrim;
 use Zend\Filter\ToNull;
-use Zend\Form\Element\Password;
+use Zend\Form\Element\Password as PasswordElement;
 use Zend\Form\Element\Text;
 use Zend\Form\Form;
 use Zend\InputFilter\Input;
@@ -14,8 +15,6 @@ use Zend\Validator\StringLength;
 
 class RegisterForm extends Form
 {
-    const PASSWORD_LENGTH_MIN = 8;
-
     public function __construct()
     {
         parent::__construct();
@@ -40,7 +39,7 @@ class RegisterForm extends Form
 
     public function buildPasswordElement()
     {
-        $this->add(new Password('password'));
+        $this->add(new PasswordElement('password'));
 
         $inputObject = new Input('password');
         $inputObject->setRequired(true);
@@ -51,14 +50,14 @@ class RegisterForm extends Form
         $confirmationValidator->setMessage('Le mot de passe de confirmation est différent', Identical::NOT_SAME);
 
         $inputObject->getValidatorChain()
-            ->attach(new StringLength(['min' => self::PASSWORD_LENGTH_MIN]))
+            ->attach(new StringLength(['min' => Password::MIN_LENGTH]))
             ->attach($confirmationValidator);
         $this->getInputFilter()->add($inputObject);
     }
 
     public function buildPasswordConfirmationElement()
     {
-        $this->add(new Password('password_confirmation'));
+        $this->add(new PasswordElement('password_confirmation'));
 
         $inputObject = new Input('password_confirmation');
         $inputObject->setRequired(true);
@@ -66,8 +65,16 @@ class RegisterForm extends Form
             ->attach(new ToNull());
 
         $inputObject->getValidatorChain()
-            ->attach(new StringLength(['min' => self::PASSWORD_LENGTH_MIN]));
+            ->attach(new StringLength(['min' => Password::MIN_LENGTH]));
         $this->getInputFilter()->add($inputObject);
+    }
+
+    /**
+     * Invalide le formulaire
+     */
+    public function invalid()
+    {
+        $this->isValid = false;
     }
 
 }

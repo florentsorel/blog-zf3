@@ -4,7 +4,9 @@ namespace Application\Controller;
 
 use Application\Form\RegisterForm;
 use Application\Service\Command\CreateUserCommand;
+use Application\Service\Command\Exception\UserEmailIsNotUniqueException;
 use Application\Service\Command\Handler\CreateUserHandler;
+use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -32,7 +34,7 @@ class UserController extends AbstractActionController
     /**
      * Affiche le formulaire d'inscription
      *
-     * @return ViewModel
+     * @return ViewModel|Response
      */
     public function registerAction()
     {
@@ -53,6 +55,21 @@ class UserController extends AbstractActionController
         $formData = $registerForm->getData();
 
         $createCommand = CreateUserCommand::createFromFormData($formData);
-        $this->createUserHandler->handle($createCommand);
+        try {
+            $this->createUserHandler->handle($createCommand);
+        }
+        catch (UserEmailIsNotUniqueException $exception) {
+            $registerForm->invalid();
+            $registerForm->get('email')
+                ->setMessages(
+                    ['L\'adresse email est déjà utilisée par un autre utilisateur']
+                );
+
+            return $view;
+        }
+
+        $this->flashMessenger()->addMessage(array('success' => 'Custom success message to be here...'));
+
+        return $this->redirect()->toRoute('root');
     }
 }

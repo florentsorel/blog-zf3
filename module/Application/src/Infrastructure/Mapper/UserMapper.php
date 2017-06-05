@@ -2,6 +2,7 @@
 
 namespace Application\Infrastructure\Mapper;
 
+use Application\Domain\Common\ValueObject\EmailAddress;
 use Application\Domain\User\User;
 use InvalidArgumentException;
 use Zend\Hydrator\HydratorInterface;
@@ -60,7 +61,7 @@ class UserMapper implements HydratorInterface
         $object->setId((int) $data['idUser']);
 
         if (isset($data['email']) && !empty($data['email'])) {
-            $object->setEmail($data['email']);
+            $object->setEmail(new EmailAddress($data['email']));
         }
         if (isset($data['password']) && !empty($data['password'])) {
             $object->setPassword($data['password']);

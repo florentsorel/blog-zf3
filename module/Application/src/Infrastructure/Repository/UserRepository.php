@@ -2,6 +2,8 @@
 
 namespace Application\Infrastructure\Repository;
 
+use Application\Domain\Common\Entity\EntityNotFoundException;
+use Application\Domain\Common\ValueObject\EmailAddress;
 use Application\Domain\User\User;
 use Application\Infrastructure\Mapper\UserMapper;
 use Zend\Db\Adapter\Adapter as DbAdapter;
@@ -44,6 +46,51 @@ class UserRepository
      */
     private function create(User $user)
     {
+        // Extrait les données de l'entité
         $data = $this->userMapper->extract($user);
+
+        $insert = <<<SQL
+            INSERT INTO User (
+                idUser,
+                email,
+                password
+            )
+            VALUES (
+                :idUser,
+                :email,
+                :password
+            );
+SQL;
+        $statement = $this->db->createStatement($insert);
+        $statement->execute($data);
+    }
+
+    public function findByEmail(EmailAddress $email)
+    {
+        $select = <<<SQL
+            SELECT
+                User.idUser,
+                User.email
+            FROM User
+            WHERE User.email = :email;
+SQL;
+
+        $statement = $this->db->createStatement($select);
+        $result = $statement->execute([
+            ':email' => $email->toString()
+        ]);
+
+        if ($result->isQueryResult() === false || $result->count() < 1) {
+            throw new EntityNotFoundException(sprintf(
+                'User with email address "%s" does not exist',
+                $email->toString()
+            ));
+        }
+
+        $user = new User();
+        $this->userMapper->hydrate($result->current(), $user);
+
+        return $user;
+
     }
 }

@@ -4,17 +4,18 @@ namespace Application\Domain\User;
 
 use Application\Domain\Common\Entity\AbstractEntity;
 use Application\Domain\Common\Entity\EntityInterface;
+use Application\Domain\Common\ValueObject\EmailAddress;
 
 class User extends AbstractEntity implements EntityInterface
 {
-    /** @var string */
+    /** @var EmailAddress */
     private $email;
 
     /** @var string */
     private $password;
 
     /**
-     * @return string
+     * @return EmailAddress
      */
     public function getEmail()
     {
@@ -22,11 +23,13 @@ class User extends AbstractEntity implements EntityInterface
     }
 
     /**
-     * @param string $email
+     * @param EmailAddress $email
+     * @return $this
      */
-    public function setEmail($email)
+    public function setEmail(EmailAddress $email)
     {
         $this->email = $email;
+        return $this;
     }
 
     /**
@@ -39,10 +42,12 @@ class User extends AbstractEntity implements EntityInterface
 
     /**
      * @param string $password
+     * @return $this
      */
     public function setPassword($password)
     {
         $this->password = $password;
+        return $this;
     }
 
     /**
